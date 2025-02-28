@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { IUserSignInDTO } from "../../models";
+import { IUser, IUserSignInDTO } from "../../models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -8,7 +8,7 @@ dotenv.config();
 const prisma = new PrismaClient();
 
 export const signInUser = async ({ email, password }: IUserSignInDTO) => {
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user: IUser | null = await prisma.user.findUnique({ where: { email } });
   if (!user) throw new Error("[ERROR] Cant find user with this email");
 
   const isValid = await bcrypt.compare(password, user.password);

@@ -1,4 +1,5 @@
 export type IUser = {
+  createdAt: Date;
   id: string;
   username: string;
   email: string;
