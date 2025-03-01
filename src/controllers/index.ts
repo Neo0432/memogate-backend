@@ -1,1 +1,2 @@
-export { registerController, signInController } from "./authController";
+export { registerController, signInController } from "./auth-controller";
+export {getBookmarksByUserId} from './bookmarks-controller'

@@ -1,0 +1,1 @@
+export {getAllBookmarksByUserId} from './get-all-by-userid'
