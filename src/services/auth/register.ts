@@ -8,7 +8,7 @@ dotenv.config();
 const prisma = new PrismaClient();
 
 export const registerUser = async ({
-  username,
+  name,
   email,
   password,
 }: IUserSighUpDTO) => {
@@ -19,7 +19,7 @@ export const registerUser = async ({
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const user: IUser = await prisma.user.create({
-    data: { id: uuidv4(), username, email, password: hashedPassword },
+    data: { id: uuidv4(), name, email, password: hashedPassword },
   });
 
   return { ...user };

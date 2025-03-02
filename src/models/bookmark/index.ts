@@ -12,3 +12,10 @@ export interface IBookmarkDto {
     title: string;
     description: string;
 }
+
+export interface IBookmarkCreate {
+    title: string;
+    description: string;
+    url: string;
+    userId: string;
+}

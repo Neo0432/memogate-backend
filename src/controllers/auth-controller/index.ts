@@ -3,9 +3,8 @@ import { authApi } from "../../services";
 
 export const registerController = async (req: Request, res: Response) => {
   try {
-    const {email, password } = req.body;
-    const username = req.body.name;
-    const user = await authApi.registerUser({ username, email, password });
+    const {name, email, password } = req.body;
+    const user = await authApi.registerUser({ name, email, password });
     const userdata = await authApi.signInUser({ email: user.email, password });
     res.status(201).json(userdata);
   } catch (e: any) {
@@ -16,6 +15,7 @@ export const registerController = async (req: Request, res: Response) => {
 
 export const signInController = async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
     const { email, password } = req.body;
     const data = await authApi.signInUser({ email, password });
     res.status(201).json(data);

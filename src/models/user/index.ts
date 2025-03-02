@@ -1,7 +1,7 @@
 export type IUser = {
   createdAt: Date;
   id: string;
-  username: string;
+  name: string;
   email: string;
   password: string;
 };
@@ -12,5 +12,5 @@ export interface IUserSignInDTO {
 }
 
 export interface IUserSighUpDTO extends IUserSignInDTO {
-  username: string;
+  name: string;
 }
