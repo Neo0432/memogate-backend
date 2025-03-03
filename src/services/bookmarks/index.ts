@@ -1,0 +1,5 @@
+export {getAllBookmarksByUserId} from './get-all-by-userid'
+export {getBookmarksByBookmarkId} from './get-bookmark-by-id'
+export {createBookmark} from './create-bookmark'
+export {updateBookmark} from './update-bookmark'
+export {deleteBookmark} from './delete-bookmark'
