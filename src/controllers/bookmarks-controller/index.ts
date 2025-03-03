@@ -45,6 +45,52 @@ export async function createBookmark(req: Request, res: Response): Promise<void>
     }
 }
 
+export async function getBookmarkById(req: Request, res: Response): Promise<void> {
+    try {
+        const { bookmarkId } = req.query;
+
+        if (!bookmarkId) {
+            res.status(400).json({ error: "BookmarkId is required" });
+            return
+        } else if (typeof bookmarkId !== "string") {
+            res.status(400).json({ error: "BookmarkId must be a string" });
+            return;
+        }
+
+        const bookmark = await bookmarksApi.getBookmarksByBookmarkId({bookmarkId: bookmarkId})
+
+        if (!bookmark) {
+            res.status(400).json({ error: `Bookmark with id ${bookmarkId} not found` });
+        }
+
+        res.status(200).json({bookmark: bookmark[0]});
+
+
+    } catch (e) {
+        console.error("Error fetching bookmark by id:", e);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+export async function updateBookmark(req: Request, res: Response): Promise<void> {
+    try {
+        const {bookmark} = req.body;
+
+        console.log(bookmark);
+
+        if (!bookmark) {
+            res.status(400).json({ error: "BookmarkId is required" });
+        }
+
+        const response = await bookmarksApi.updateBookmark({bookmark: bookmark})
+
+        console.log(response)
+        res.status(200).json({bookmark});
+    } catch (e) {
+        res.status(500).json({ error: `Internal server error: ${e}` });
+    }
+}
+
 export async function deleteBookmark(req: Request, res: Response): Promise<void> {
     try {
         const {bookmarkId} = req.query;

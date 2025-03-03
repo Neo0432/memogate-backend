@@ -19,3 +19,7 @@ export interface IBookmarkCreate {
     url: string;
     userId: string;
 }
+
+export interface IBookmarkUpdate extends IBookmarkDto {
+    url: string;
+}
