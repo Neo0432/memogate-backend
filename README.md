@@ -16,6 +16,12 @@ ___
     - Set the `DATABASE_URL`
     - Set a `JWT_SECRET` (you can generate it yourself)
 
+### Install Prisma CLI and start migrations (if needed)
+```bash
+  yarn prisma generate
+  yarn migrate
+```
+
 ### Start the project
 ```bash
   yarn start
