@@ -2,7 +2,7 @@
 ___
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-A backend API for the [Memogate mobile app] (https://github.com/Neo0432/memogate) — an application for saving quick notes that include a URL, a title, and a description.
+A backend API for the [Memogate mobile app](https://github.com/Neo0432/memogate) — an application for saving quick notes that include a URL, a title, and a description.
 
 ## Install
 ___
