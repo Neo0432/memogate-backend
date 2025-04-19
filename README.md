@@ -1,0 +1,32 @@
+# MEMOGATE APP
+___
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+
+A backend API for the Memogate mobile app — an application for saving quick notes that include a URL, a title, and a description.
+
+## Install
+___
+```bash
+  yarn install
+```
+
+### Create and configure the `.env` file in the project root:
+1. Create a `.env` file in the root directory of the project.
+2. Configure it according to the `example.env`:
+    - Set the `DATABASE_URL`
+    - Set a `JWT_SECRET` (you can generate it yourself)
+
+### Start the project
+```bash
+  yarn start
+```
+
+## Contributing
+___
+Pull requests are welcome.
+
+> Note: If you're editing this README, please follow the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
+
+## License
+___
+[MIT © Ilia Dorovskih.](./LICENSE)
