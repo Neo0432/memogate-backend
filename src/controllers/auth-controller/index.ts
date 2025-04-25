@@ -4,6 +4,7 @@ import { authApi } from "../../services";
 export const registerController = async (req: Request, res: Response) => {
   try {
     const {name, email, password } = req.body;
+    console.log(name)
     const user = await authApi.registerUser({ name, email, password });
     const userdata = await authApi.signInUser({ email: user.email, password });
     res.status(201).json(userdata);

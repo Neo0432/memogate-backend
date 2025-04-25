@@ -17,7 +17,7 @@ export const signInUser = async ({ email, password }: IUserSignInDTO) => {
   const jwt_secret = process.env.JWT_SECRET;
   if (!jwt_secret) throw new Error("[ERROR] Cant find jwt_secret");
 
-  const token = jwt.sign({ userId: user.id }, jwt_secret);
+  const token = jwt.sign({ id: user.id, email: user.email }, jwt_secret);
 
   return { token: token, data: user };
 };
