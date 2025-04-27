@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { IUser, IUserSignInDTO } from "../../models";
+import { IUser, IUserSignInDTO } from "@/models";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
