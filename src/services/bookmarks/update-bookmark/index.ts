@@ -5,9 +5,9 @@ import {IBookmarkUpdate} from "../../../models/bookmark";
 dotenv.config();
 const prisma = new PrismaClient();
 
-export const updateBookmark = async ({bookmark} : {bookmark: IBookmarkUpdate} ) => {
+export const updateBookmark = async ({bookmark, id} : {bookmark: IBookmarkUpdate, id: string} ) => {
     try {
-        return await prisma.bookmark.update({where: {id: bookmark.id}, data: {
+        return await prisma.bookmark.update({where: {id: id}, data: {
             title: bookmark.title,
             description: bookmark.description,
             url: bookmark.url,

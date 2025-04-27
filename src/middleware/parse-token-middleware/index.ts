@@ -8,9 +8,9 @@ export const parseTokenMiddleware = (req: Request, res: Response, next: NextFunc
 
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET || "");
-        if (typeof decoded === 'object' && 'id' in decoded) {
+        if (typeof decoded === 'object' && 'userId' in decoded) {
             req.user = {
-                id: decoded.id as string,
+                id: decoded.userId as string,
                 email: decoded.email as string | undefined,
             };
         }

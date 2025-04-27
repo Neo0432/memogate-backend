@@ -29,7 +29,6 @@ export async function createBookmark(req: Request, res: Response): Promise<void>
             return;
         }
 
-        console.log(bookmarkData);
         if (!bookmarkData) {
             res.status(400).json({ error: "BookmarkData is required" });
             return;
@@ -79,13 +78,18 @@ export async function getBookmarkById(req: Request, res: Response): Promise<void
 
 export async function updateBookmark(req: Request, res: Response): Promise<void> {
     try {
+        const {bookmarkId} = req.query
         const {bookmark} = req.body;
 
-        if (!bookmark) {
-            res.status(400).json({ error: "BookmarkId is required" });
+        if (!bookmarkId || typeof bookmarkId !== "string") {
+          res.status(400).json({ error: "Bookmark id is required" });
+          return;
+        } else if (!bookmark) {
+            res.status(400).json({ error: "Bookmark data is required" });
+            return;
         }
 
-        const updatedBookmark = await bookmarksApi.updateBookmark({bookmark: bookmark})
+        const updatedBookmark = await bookmarksApi.updateBookmark({bookmark: bookmark, id: bookmarkId})
 
         res.status(200).json({bookmark: updatedBookmark});
     } catch (e) {
