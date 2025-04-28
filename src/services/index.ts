@@ -18,5 +18,15 @@ export const bookmarksApi = {
   deleteBookmark,
 };
 
-import { getAllTags, createTag } from "./tags";
-export const tagsApi = { getAllTags, createTag };
+import {
+  getAllTags,
+  createTag,
+  getBookmarkTags,
+  deleteTagFromBookmarkById,
+} from "./tags";
+export const tagsApi = {
+  getAllTags,
+  getBookmarkTags,
+  createTag,
+  deleteTagFromBookmarkById,
+};

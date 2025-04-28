@@ -22,8 +22,6 @@ export const parseTokenMiddleware = (
         email: decoded.email as string | undefined,
       };
 
-      //TODO: переписать вот эту штуку нормально, по человечески, без костылей
-
       if (!req.userId || req.userId.trim() === "") {
         res.status(400).json({ error: "userId is required" });
         return;

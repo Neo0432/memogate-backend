@@ -10,7 +10,12 @@ import {
   updateBookmark,
   deleteBookmark,
 } from "@controllers/bookmarks-controller";
-import { getAllTags, createTag } from "@controllers/tag-controller";
+import {
+  getAllTags,
+  createTag,
+  deleteTagFromBookmark,
+  getBookmarkTags,
+} from "@controllers/tag-controller";
 import { authMiddleware } from "@/middleware";
 import { parseTokenMiddleware } from "@middleware/parse-token-middleware";
 
@@ -28,7 +33,7 @@ router.delete("/bookmarks/delete", deleteBookmark);
 
 router.use("/tags", authMiddleware, parseTokenMiddleware);
 router.get("/tags", getAllTags);
+router.get("/tags/bookmark", getBookmarkTags);
 router.post("/tags/create", createTag);
-router.patch("/tags/update");
-router.delete("/tags/delete");
+router.delete("/tags/delete", deleteTagFromBookmark);
 export default router;

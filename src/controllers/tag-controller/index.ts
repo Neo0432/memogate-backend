@@ -1,14 +1,15 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { tagsApi } from "@/services";
-import { AuthedRequest } from "@models/request";
+import { deleteTagFromBookmarkById } from "@services/tags/delete-tag-from-bookmark";
 
-export async function getAllTags(
-  req: AuthedRequest,
-  res: Response,
-  next: NextFunction,
-) {
+export async function getAllTags(req: Request, res: Response) {
   try {
     const userId = req.userId;
+
+    if (!userId) {
+      res.status(400).json({ error: "UserId not found" });
+      return;
+    }
 
     const tags = await tagsApi.getAllTags(userId);
 
@@ -19,15 +20,32 @@ export async function getAllTags(
   }
 }
 
-export async function createTag(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+export async function getBookmarkTags(req: Request, res: Response) {
   try {
-    //TODO: fix it
-    const userId = req.user?.id!;
+    const { bookmarkId } = req.query;
+
+    if (!bookmarkId || typeof bookmarkId !== "string") {
+      res.status(400).json({ error: "BookmarkId is required" });
+      return;
+    }
+
+    const tags: string[] = await tagsApi.getBookmarkTags(bookmarkId);
+
+    res.status(200).json({ tags });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+export async function createTag(req: Request, res: Response) {
+  try {
+    const userId = req.userId;
     const { tagData, bookmarkId } = req.body;
+
+    if (!userId) {
+      res.status(400).json({ error: "UserId not found" });
+      return;
+    }
 
     const { tag, bookmarkTag } = await tagsApi.createTag({
       userId,
@@ -35,10 +53,31 @@ export async function createTag(
       bookmarkId,
     });
 
-    console.log(tag);
     res.status(200).json({ tag: bookmarkTag });
   } catch (error) {
     console.error("Error creating tag:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+export async function deleteTagFromBookmark(req: Request, res: Response) {
+  try {
+    const { tagId, bookmarkId } = req.query;
+
+    if (!tagId || !bookmarkId) {
+      res.status(400).json({ error: "Tag id and bookmark id are required" });
+      return;
+    }
+
+    const response = await deleteTagFromBookmarkById({
+      tagId: tagId as string,
+      bookmarkId: bookmarkId as string,
+    });
+
+    res.status(200).json({ response });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: `Error deleting tag from bookmark: ${error}` });
   }
 }

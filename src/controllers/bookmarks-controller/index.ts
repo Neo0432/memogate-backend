@@ -1,13 +1,14 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { bookmarksApi } from "@/services";
-import { AuthedRequest } from "@models/request";
 
-export async function getBookmarks(
-  req: AuthedRequest,
-  res: Response,
-): Promise<void> {
+export async function getBookmarks(req: Request, res: Response): Promise<void> {
   try {
     const userId = req.userId;
+
+    if (!userId) {
+      res.status(400).json({ error: "userId not found" });
+      return;
+    }
 
     const bookmarks = await bookmarksApi.getAllBookmarksByUserId({
       userId: userId,
@@ -21,12 +22,17 @@ export async function getBookmarks(
 }
 
 export async function createBookmark(
-  req: AuthedRequest,
+  req: Request,
   res: Response,
 ): Promise<void> {
   try {
     const userId = req.userId;
     const { bookmarkData } = req.body;
+
+    if (!userId) {
+      res.status(400).json({ error: "userId not found" });
+      return;
+    }
 
     if (!bookmarkData) {
       res.status(400).json({ error: "BookmarkData is required" });
@@ -47,7 +53,7 @@ export async function createBookmark(
 }
 
 export async function getBookmarkById(
-  req: AuthedRequest,
+  req: Request,
   res: Response,
 ): Promise<void> {
   try {
@@ -79,7 +85,7 @@ export async function getBookmarkById(
 }
 
 export async function updateBookmark(
-  req: AuthedRequest,
+  req: Request,
   res: Response,
 ): Promise<void> {
   try {
@@ -106,7 +112,7 @@ export async function updateBookmark(
 }
 
 export async function deleteBookmark(
-  req: AuthedRequest,
+  req: Request,
   res: Response,
 ): Promise<void> {
   try {
