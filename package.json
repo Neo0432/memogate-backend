@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "yarn ts-node index.ts",
+    "dev": "node -r tsconfig-paths/register -r ts-node/register index.ts",
     "migrate": "yarn prisma migrate dev --name use_uuid_for_id",
     "prisma-reset": "yarn prisma migrate reset"
   },
@@ -28,6 +28,7 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.13.4",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3"
   }
 }
