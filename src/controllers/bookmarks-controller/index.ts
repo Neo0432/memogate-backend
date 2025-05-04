@@ -21,37 +21,6 @@ export async function getBookmarks(req: Request, res: Response): Promise<void> {
   }
 }
 
-export async function createBookmark(
-  req: Request,
-  res: Response,
-): Promise<void> {
-  try {
-    const userId = req.userId;
-    const { bookmarkData } = req.body;
-
-    if (!userId) {
-      res.status(400).json({ error: "userId not found" });
-      return;
-    }
-
-    if (!bookmarkData) {
-      res.status(400).json({ error: "BookmarkData is required" });
-      return;
-    }
-
-    const bookmark = await bookmarksApi.createBookmark({
-      title: bookmarkData.title,
-      description: bookmarkData.description,
-      userId: userId,
-      url: bookmarkData.url,
-    });
-    res.status(200).json({ bookmark });
-  } catch (error) {
-    console.error("Error creating bookmark:", error);
-    res.status(500).json({ error: "Cant create bookmark" });
-  }
-}
-
 export async function getBookmarkById(
   req: Request,
   res: Response,
@@ -81,6 +50,38 @@ export async function getBookmarkById(
   } catch (e) {
     console.error("Error fetching bookmark by id:", e);
     res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+export async function createBookmark(
+  req: Request,
+  res: Response,
+): Promise<void> {
+  try {
+    const userId = req.userId;
+    const { bookmarkData } = req.body;
+
+    if (!userId) {
+      res.status(400).json({ error: "userId not found" });
+      return;
+    }
+
+    if (!bookmarkData) {
+      res.status(400).json({ error: "BookmarkData is required" });
+      return;
+    }
+
+    const bookmark = await bookmarksApi.createBookmark({
+      title: bookmarkData.title,
+      description: bookmarkData.description,
+      userId: userId,
+      url: bookmarkData.url,
+    });
+
+    res.status(200).json({ bookmark });
+  } catch (error) {
+    console.error("Error creating bookmark:", error);
+    res.status(500).json({ error: "Cant create bookmark" });
   }
 }
 

@@ -12,7 +12,7 @@ import {
 } from "@controllers/bookmarks-controller";
 import {
   getAllTags,
-  createTag,
+  addTagToBookmark,
   deleteTagFromBookmark,
   getBookmarkTags,
 } from "@controllers/tag-controller";
@@ -34,6 +34,6 @@ router.delete("/bookmarks/delete", deleteBookmark);
 router.use("/tags", authMiddleware, parseTokenMiddleware);
 router.get("/tags", getAllTags);
 router.get("/tags/bookmark", getBookmarkTags);
-router.post("/tags/create", createTag);
+router.post("/tags/add-tag", addTagToBookmark);
 router.delete("/tags/delete", deleteTagFromBookmark);
 export default router;

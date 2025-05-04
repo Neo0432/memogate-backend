@@ -2,19 +2,17 @@ import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
 import { PrismaClient } from "@prisma/client";
 
-import { IBookmarkRelatedTag, ICreateTagDTO, ITag } from "@models/tag";
+import { ICreateTagDTO, ITag } from "@models/tag";
 
 dotenv.config();
 const prisma = new PrismaClient();
 
 export const createTag = async ({
   userId,
-  bookmarkId,
   tagData,
 }: {
   tagData: ICreateTagDTO;
   userId: string;
-  bookmarkId: string;
 }) => {
   try {
     const tag: ITag = await prisma.tag.create({
@@ -25,17 +23,7 @@ export const createTag = async ({
       },
     });
 
-    const bookmarkTag: IBookmarkRelatedTag = await prisma.bookmarkTags.create({
-      data: {
-        tagId: tag.id,
-        bookmarkId: bookmarkId,
-      },
-    });
-
-    return {
-      tag,
-      bookmarkTag,
-    };
+    return tag;
   } catch (error) {
     throw new Error(`Cant create tag: ${error}`);
   }

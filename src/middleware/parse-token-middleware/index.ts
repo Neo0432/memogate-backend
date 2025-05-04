@@ -16,18 +16,18 @@ export const parseTokenMiddleware = (
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "");
-    if (typeof decoded === "object" && "userId" in decoded) {
+    if (typeof decoded === "object" && "id" in decoded) {
       req.user = {
-        id: decoded.userId as string,
+        id: decoded.id as string,
         email: decoded.email as string | undefined,
       };
 
-      if (!req.userId || req.userId.trim() === "") {
-        res.status(400).json({ error: "userId is required" });
-        return;
-      }
+      // if (!req.userId || req.userId.trim() === "") {
+      //   res.status(400).json({ error: "userId is required" });
+      //   return;
+      // }
 
-      req.userId = decoded.userId as string;
+      req.userId = decoded.id as string;
     }
     next();
   } catch (error) {

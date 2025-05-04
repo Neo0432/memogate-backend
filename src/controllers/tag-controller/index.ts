@@ -37,7 +37,7 @@ export async function getBookmarkTags(req: Request, res: Response) {
   }
 }
 
-export async function createTag(req: Request, res: Response) {
+export async function addTagToBookmark(req: Request, res: Response) {
   try {
     const userId = req.userId;
     const { tagData, bookmarkId } = req.body;
@@ -47,13 +47,13 @@ export async function createTag(req: Request, res: Response) {
       return;
     }
 
-    const { tag, bookmarkTag } = await tagsApi.createTag({
+    const { tag, bookmarkTagLink } = await tagsApi.addTagToBookmark({
       userId,
       tagData,
       bookmarkId,
     });
 
-    res.status(200).json({ tag: bookmarkTag });
+    res.status(200).json({ tagInBookmark: bookmarkTagLink, tag: tag });
   } catch (error) {
     console.error("Error creating tag:", error);
     res.status(500).json({ error: "Internal server error" });

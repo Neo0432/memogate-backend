@@ -20,13 +20,15 @@ export const bookmarksApi = {
 
 import {
   getAllTags,
-  createTag,
   getBookmarkTags,
+  addTagToBookmark,
+  createTag,
   deleteTagFromBookmarkById,
 } from "./tags";
 export const tagsApi = {
   getAllTags,
   getBookmarkTags,
+  addTagToBookmark,
   createTag,
   deleteTagFromBookmarkById,
 };
