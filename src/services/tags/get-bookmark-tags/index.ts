@@ -6,14 +6,22 @@ const prisma = new PrismaClient();
 
 export const getBookmarkTags = async (bookmarkId: string) => {
   try {
-    const tagIds = await prisma.bookmarkTags.findMany({
+    const tagLinksIds = await prisma.bookmarkTags.findMany({
       where: { bookmarkId },
       select: {
         tagId: true,
       },
     });
 
-    return tagIds.map((tagId) => tagId.tagId);
+    const tagIds = tagLinksIds.map((tagId) => tagId.tagId);
+
+    return await prisma.tag.findMany({
+      where: { id: { in: tagIds } },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
   } catch (error) {
     console.error("Error getting bookmark tags:", error);
     return [];

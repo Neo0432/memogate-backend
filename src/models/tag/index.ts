@@ -13,3 +13,8 @@ export type ICreateTagDTO = {
   name: string;
   bookmarkId: string;
 };
+
+export type IFindTagsForBookmarkResultDTO = {
+  id: string;
+  name: string;
+};

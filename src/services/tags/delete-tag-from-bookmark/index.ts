@@ -16,7 +16,7 @@ export const deleteTagFromBookmarkById = async ({
       where: { bookmarkId_tagId: { bookmarkId, tagId } },
     });
 
-    const bookmarksWithTag = await prisma.tag.findMany({
+    const bookmarksWithTag = await prisma.bookmark.findMany({
       where: { id: tagId },
       include: {
         bookmarkTags: {

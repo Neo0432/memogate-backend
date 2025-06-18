@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import { tagsApi } from "@/services";
 import { deleteTagFromBookmarkById } from "@services/tags/delete-tag-from-bookmark";
+import { IFindTagsForBookmarkResultDTO, ITag } from "@models/tag";
 
 export async function getAllTags(req: Request, res: Response) {
   try {
     const userId = req.userId;
 
     if (!userId) {
-      res.status(400).json({ error: "UserId not found" });
+      res.status(401).json({ error: "UserId not found" });
       return;
     }
 
@@ -29,9 +30,10 @@ export async function getBookmarkTags(req: Request, res: Response) {
       return;
     }
 
-    const tags: string[] = await tagsApi.getBookmarkTags(bookmarkId);
+    const tags: IFindTagsForBookmarkResultDTO[] =
+      await tagsApi.getBookmarkTags(bookmarkId);
 
-    res.status(200).json({ tags });
+    res.status(200).json(tags);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -43,7 +45,7 @@ export async function addTagToBookmark(req: Request, res: Response) {
     const { tagData, bookmarkId } = req.body;
 
     if (!userId) {
-      res.status(400).json({ error: "UserId not found" });
+      res.status(401).json({ error: "UserId not found" });
       return;
     }
 
@@ -62,7 +64,7 @@ export async function addTagToBookmark(req: Request, res: Response) {
 
 export async function deleteTagFromBookmark(req: Request, res: Response) {
   try {
-    const { tagId, bookmarkId } = req.query;
+    const { tagId, bookmarkId } = req.body;
 
     if (!tagId || !bookmarkId) {
       res.status(400).json({ error: "Tag id and bookmark id are required" });
