@@ -1,19 +1,29 @@
 import dotenv from "dotenv";
 import { PrismaClient } from "@prisma/client";
-import { ITag } from "@models/tag";
+import { IGetAllTagsResponseDto } from "@models/tag";
 
 dotenv.config();
 const prisma = new PrismaClient();
 
 export const getAllTags = async (userId: string) => {
-  const tags: ITag[] = await prisma.tag.findMany({
+  const tags = await prisma.tag.findMany({
     where: { userId },
     select: {
       id: true,
       name: true,
       userId: true,
+      bookmarkTags: true,
     },
   });
 
-  return tags;
+  const response: IGetAllTagsResponseDto[] = tags.map((tag) => {
+    return {
+      ...tag,
+      bookmarkIds: tag.bookmarkTags.map(
+        (bookmarkTag) => bookmarkTag.bookmarkId
+      ),
+    };
+  });
+
+  return response;
 };

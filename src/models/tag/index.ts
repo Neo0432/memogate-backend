@@ -4,17 +4,21 @@ export type ITag = {
   name: string;
 };
 
-export type IBookmarkRelatedTag = {
+export interface IGetAllTagsResponseDto extends ITag {
+  bookmarkIds: string[];
+}
+
+export interface IBookmarkRelatedTag {
   tagId: string;
   bookmarkId: string;
-};
+}
 
-export type ICreateTagDTO = {
+export interface ICreateTagDTO {
   name: string;
   bookmarkId: string;
-};
+}
 
-export type IFindTagsForBookmarkResultDTO = {
+export interface IFindTagsForBookmarkResultDTO {
   id: string;
   name: string;
-};
+}
