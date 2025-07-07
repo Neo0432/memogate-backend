@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { tagsApi } from "@/services";
 import { deleteTagFromBookmarkById } from "@services/tags/delete-tag-from-bookmark";
-import { IFindTagsForBookmarkResultDTO, ITag } from "@models/tag";
+import { IFindTagsForBookmarkResultDTO } from "@models/tag";
 
 export async function getAllTags(req: Request, res: Response) {
   try {
