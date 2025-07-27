@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
-import { IUser, IUserSighUpDTO } from "../../models";
+import { IUser, IUserSighUpDTO } from "@/models";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,7 +12,6 @@ export const registerUser = async ({
   email,
   password,
 }: IUserSighUpDTO) => {
-
   const existingUser = await prisma.user.findUnique({ where: { email } });
 
   if (existingUser) console.error("[ERROR] User already exists");

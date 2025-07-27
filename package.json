@@ -7,8 +7,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "yarn ts-node index.ts",
-    "migrate": "yarn prisma migrate dev --name use_uuid_for_id"
+    "dev": "node -r tsconfig-paths/register -r ts-node/register index.ts",
+    "migrate": "yarn prisma migrate dev --name use_uuid_for_id",
+    "prisma-reset": "yarn prisma migrate reset"
   },
   "dependencies": {
     "@prisma/client": "^6.4.0",
@@ -17,6 +18,7 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.3",
+    "prettier": "^3.5.3",
     "prisma": "^6.4.0",
     "uuid": "^11.1.0"
   },
@@ -26,6 +28,7 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^22.13.4",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3"
   }
 }
